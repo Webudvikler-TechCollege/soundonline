@@ -1,19 +1,30 @@
-<% include ../../partials/header %>    
+<% include ../../partials/head %>
 
-<form class="form-signin" action="/auth/signin" method="post">
-  
-  <label for="inputEmail" class="sr-only">Email-adresse</label>
-  <input type="email" id="inputEmail" class="form-control" placeholder="din@email.dk" name="email" autofocus>
-  <label for="inputPassword" class="sr-only">Adgangskode</label>
-  <input type="password" id="inputPassword" class="form-control" placeholder="adgangskode" name="password">
-  <div class="checkbox mb-3">
-    <label>
-      <input type="checkbox" value="remember-me"> Husk mig
-    </label>
-  </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Log ind</button>
-  <p class="mt-5 mb-3"><a href="/signup">Opret en ny konto</a></p>
-  <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-</form>
-
-<% include ../../partials/footer %>
+<body id="login">
+<div>
+   <div id="logo">CMS LOGIN</div>
+   <div id="errormsg" class="text-danger"></div>
+   <form id="loginform" method="post" action="/login" autocomplete="off">
+        <div class="form-group row">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><span class="fa fa-user"></span></div>
+                </div>            
+                <input type="text" class="form-control" id="email" name="email" autocapitalize="none" placeholder="Indtast brugernavn" value="">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><span class="fa fa-lock"></span></div>
+                </div>            
+                <input type="password" class="form-control" id="password" name="password" autocapitalize="none" placeholder="Indtast brugernavn" value="">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group text-right">
+               <button type="submit" value="Login" class="btn btn-success pull-right">Login</button>
+            </div>
+       </div>
+   </form>
+</div>

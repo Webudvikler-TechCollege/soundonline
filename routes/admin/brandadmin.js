@@ -2,12 +2,17 @@
  * Routes til brand adminpanel
  * Heinz K - Marts 2019
  */
+const mysql = require('../../config/mysql')();
+const jwt = require('../../config/jwt');
 
 const modulename = 'Brands';
 
 module.exports = (app) => {
     //GET: Henter liste med brands
     app.get('/admin/brand/index', (req, res) => {
+        //let token = jwt.open(req.headers.token);
+        //console.log(token);
+    
         res.render('pages/admin/brand/index', {
             modulename: modulename,
             modulemode: 'Oversigt'
@@ -25,6 +30,7 @@ module.exports = (app) => {
 
     //Opret nyt brand
     app.get('/admin/brand/create', (req, res) => {
+
         res.render('pages/admin/brand/create', {
             modulename: modulename,
             modulemode: 'Opret ny'

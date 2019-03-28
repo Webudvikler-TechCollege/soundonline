@@ -29,7 +29,7 @@
         //Sætter var til url
         const url = '/api/brand/';
 
-        //Sætter fetch settings med PUT metode, headers og form data
+        //Sætter fetch settings med POST metode, headers og form data
         const fetchSettings = {
             method: 'POST',
             headers: new Headers({
@@ -45,8 +45,19 @@
         fetch(url, fetchSettings)
             .then(res => {
                 if(res.status === 200) {
-                    console.log(res);
-                    document.location.href = '/admin/brand/index';
+
+                    //Fetcher seneste id og redirecter til details :D :D :D 
+                    fetch('/api/brand/getinsertid')
+                        .then(data => {
+                            return data.json();
+                        })
+                        .then(data => {
+                            document.location.href = '/admin/brand/details/' + data[0].newid;
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                    //;
                 }
             }).catch(err => {
                 console.error(err);
@@ -56,7 +67,7 @@
     //Opretter knap til oversigt 
     let btn = document.createElement('a');
     btn.setAttribute('class', 'btn btn-dark');
-    btn.setAttribute('href', '/admin/brand/list');
+    btn.setAttribute('href', '/admin/brand/index');
     btn.innerHTML = 'Oversigt';
     document.getElementById('buttonpanel').appendChild(btn);    
 </script>
