@@ -43,21 +43,11 @@
 
         //Fetcher data til api og tjekker respons. Redirecter til details Hvis ok (200) 
         fetch(url, fetchSettings)
-            .then(res => {
-                if(res.status === 200) {
-
-                    //Fetcher seneste id og redirecter til details :D :D :D 
-                    fetch('/api/brand/getinsertid')
-                        .then(data => {
-                            return data.json();
-                        })
-                        .then(data => {
-                            document.location.href = '/admin/brand/details/' + data[0].newid;
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        })
-                    //;
+            .then(res => { 
+                return res.json();
+            }).then(data => {
+                if(data.id) {
+                    location.replace('/admin/brand/details/' + data.id);
                 }
             }).catch(err => {
                 console.error(err);

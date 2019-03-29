@@ -18,8 +18,9 @@ module.exports = (app) => {
         })
     });
 
-    //Get single item
-    app.get('/api/brand/:id([0-9])', (req, res) => {
+    //Get single item - nu med regex på route, som sikrer
+    //at denne route kun kan kaldes med et tal som endpoint
+    app.get('/api/brand/:id([0-9]*)', (req, res) => {
         if(isNaN(req.params.id)) {
             res.sendStatus(400);
         } else {
@@ -36,12 +37,9 @@ module.exports = (app) => {
         }
     })
     
-    //Add new item
+    //Opretter ny record og returnerer
     app.post('/api/brand', (req, res) => {
-        /*
-        let token = jwt.open(req.headers.token);
-        console.log(token);
-        */
+
         let title = (req.body.title === undefined) ? '' : req.body.title;
         let description = (req.body.description === undefined) ? '' : req.body.description;
 
@@ -54,7 +52,8 @@ module.exports = (app) => {
                 if(err) {
                     console.error(err);
                 } else {
-                    res.sendStatus(200);
+                    //Husk at sende som objekt :}
+                    res.send({id: result.insertId});
                 }
             })
 
@@ -62,7 +61,7 @@ module.exports = (app) => {
     })
     
     //Update item
-    app.put('/api/brands/:id', (req, res) => {
+    app.put('/api/brand/:id', (req, res) => {
         if(isNaN(req.params.id)) {
             res.sendStatus(400);
         } else {
@@ -85,7 +84,6 @@ module.exports = (app) => {
                 })    
             }
         }        
-        res.sendStatus(200);
     })
     
     //Delete item
@@ -105,7 +103,8 @@ module.exports = (app) => {
         }
     })
 
-    //Henter sidst indsatte id
+    //Henter sidst indsatte id.
+    //Bruges til at hente id når der er oprettet en ny record
     app.get('/api/brand/getinsertid', (req, res) => {
         const sql = `SELECT MAX(id) AS newid FROM brand`;
         mysql.query(sql, (err, result) => {

@@ -30,7 +30,6 @@ module.exports = (app) => {
 
     //Opret nyt brand
     app.get('/admin/brand/create', (req, res) => {
-
         res.render('pages/admin/brand/create', {
             modulename: modulename,
             modulemode: 'Opret ny'
