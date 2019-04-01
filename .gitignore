@@ -1,13 +1,10 @@
 # API files
 lib/
-routes/login.js
-routes/admin/useradmin.js
 routes/api/group.js
 routes/api/product.js
-routes/login.js
-views/pages/admin/loginform.ejs
 views/pages/admin/product/*
 assets/css/summernote.css
+config/_index.js
 
 # Logs
 logs

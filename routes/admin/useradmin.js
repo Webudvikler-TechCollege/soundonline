@@ -1,15 +1,12 @@
 /**
- * Routes til brand adminpanel
+ * Routes til user adminpanel
  * Heinz K - Marts 2019
  */
 const modulename = 'Brands';
 
 module.exports = (app) => {
     //GET: Henter liste med brands
-    app.get('/admin/brand/index', (req, res) => {
-        //let token = jwt.open(req.headers.token);
-        //console.log(token);
-    
+    app.get('/admin/user/index', (req, res) => {    
         res.render('pages/admin/brand/index', {
             modulename: modulename,
             modulemode: 'Oversigt'

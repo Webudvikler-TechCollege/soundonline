@@ -1,9 +1,13 @@
-const mysql = require('../config/mysql')();
-const jwt = require('../config/jwt');
+const mysql = require('../../config/mysql')();
+const jwt = require('../../config/jwt');
+const bodyParser = require('body-parser');
 
 module.exports = (app) => {
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
+
     //Login: Returnerer view med login formular
-    app.get('/loginform', (req, res) => {
+    app.get('/login', (req, res) => {
         res.render('pages/admin/loginform', {
             modulename: 'Login',
             modulemode: ''

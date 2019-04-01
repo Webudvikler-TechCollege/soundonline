@@ -2,8 +2,6 @@
  * Routes til produkt adminpanel
  * Heinz K - Marts 2019
  */
-const jwt = require('../../config/jwt');
-
 const modulename = 'Produkter';
 
 module.exports = (app) => {

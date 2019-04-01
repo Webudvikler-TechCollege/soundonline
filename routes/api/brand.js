@@ -6,9 +6,9 @@ module.exports = (app) => {
     //Get all 
     app.get('/api/brands', function(req, res) {
         let token = jwt.open(req.headers.token);
-        console.log(req);
+        console.log(req.headers.token);
 
-        let sql = "SELECT id, title, description FROM brand";
+        const sql = "SELECT id, title, description FROM brand";
         mysql.query(sql, (err, rows, fields) => {
             if(err) {
                 console.error(err);
