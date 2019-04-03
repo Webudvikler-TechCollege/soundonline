@@ -11,11 +11,9 @@ module.exports = (app) => {
     //Login: Kalder view med login formular
     app.get('/login', (req, res) => {
         res.render('pages/admin/login', {
-            vars: {
-                modulename: 'Login',
-                modulemode: '',
-                errormsg: ''
-            }
+            modulename: 'Login',
+            modulemode: '',
+            errormsg: ''
         })
     })
 

@@ -3,12 +3,6 @@ const bcrypt = require('bcrypt');
 
 module.exports = (app) => {
 
-    app.get('/api/usertest', function(req, res) {
-        let secret = "$2b$10$91KSP4jm8xuRdpPi9umfWuuY0N2NDJYEQBBwoRr.94g8ux9h8ICQ2";
-        let pass = "Test"
-        console.log(bcrypt.compareSync(pass, secret));
-    })
-
     //Get all 
     app.get('/api/user', function(req, res) {
         const sql = "SELECT id, firstname, lastname, email FROM user";
@@ -47,7 +41,6 @@ module.exports = (app) => {
         let lastname = (req.body.lastname === undefined) ? '' : req.body.lastname;
         let email = (req.body.email === undefined) ? '' : req.body.email;
         let password = (req.body.password === undefined) ? '' : req.body.password;
-        let secret = 'my_secret_key';
 
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);
@@ -55,9 +48,9 @@ module.exports = (app) => {
         if(firstname === '' || lastname === '' || email === '' || password === '') {
             res.sendStatus(418);
         } else {
-            const sql = `INSERT INTO user(firstname, lastname, email, password, secret) 
-                            VALUES(?,?,?,?,?)`;
-            const params = [firstname, lastname, email, hash, secret];
+            const sql = `INSERT INTO user(firstname, lastname, email, password) 
+                            VALUES(?,?,?,?)`;
+            const params = [firstname, lastname, email, hash];
 
             mysql.query(sql, params, (err, result) => {
                 if(err) {
@@ -80,19 +73,17 @@ module.exports = (app) => {
             let lastname = (req.body.lastname === undefined) ? '' : req.body.lastname;
             let email = (req.body.email === undefined) ? '' : req.body.email;
             let password = (req.body.password === undefined) ? '' : req.body.password;
-            let secret = 'my_secret_key';
     
-            if(firstname === '' || lastname === '' || email === '' || password === '' || secret === '') {
+            if(firstname === '' || lastname === '' || email === '' || password === '') {
                 res.sendStatus(418);
             } else {
                 const sql = `UPDATE user SET 
                                 firstname = ?, 
                                 lastname = ?,
                                 email = ?, 
-                                password = ?,
-                                secret = ? 
+                                password = ? 
                                 WHERE id = ?`;
-                const params = [firstname, lastname, email, password, secret, req.params.id];
+                const params = [firstname, lastname, email, password, req.params.id];
                 console.log(params);
                 mysql.query(sql, params, (err, result) => {
                     if(err) {

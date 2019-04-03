@@ -1,0 +1,94 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: 127.0.0.1 (MySQL 5.7.21)
+# Database: webshop
+# Generation Time: 2019-04-03 08:29:32 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table productgrouprel
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `productgrouprel`;
+
+CREATE TABLE `productgrouprel` (
+  `product_id` int(11) unsigned NOT NULL,
+  `productgroup_id` int(11) unsigned NOT NULL,
+  KEY `product_id` (`product_id`),
+  KEY `productgroup_id` (`productgroup_id`),
+  CONSTRAINT `productgrouprel_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  CONSTRAINT `productgrouprel_ibfk_2` FOREIGN KEY (`productgroup_id`) REFERENCES `productgroup` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `productgrouprel` WRITE;
+/*!40000 ALTER TABLE `productgrouprel` DISABLE KEYS */;
+
+INSERT INTO `productgrouprel` (`product_id`, `productgroup_id`)
+VALUES
+	(1,2),
+	(2,2),
+	(3,2),
+	(4,2),
+	(5,2),
+	(6,2),
+	(7,2),
+	(8,2),
+	(9,2),
+	(10,2),
+	(11,3),
+	(12,3),
+	(13,3),
+	(14,3),
+	(15,3),
+	(16,3),
+	(17,3),
+	(18,24),
+	(19,25),
+	(20,25),
+	(21,26),
+	(22,26),
+	(23,6),
+	(24,6),
+	(25,6),
+	(26,6),
+	(27,6),
+	(28,7),
+	(29,7),
+	(30,7),
+	(31,7),
+	(32,10),
+	(33,10),
+	(34,10),
+	(35,10),
+	(36,11),
+	(37,11),
+	(38,11),
+	(39,11),
+	(40,11),
+	(41,12);
+
+/*!40000 ALTER TABLE `productgrouprel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

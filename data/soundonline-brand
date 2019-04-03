@@ -1,0 +1,73 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: 127.0.0.1 (MySQL 5.7.21)
+# Database: webshop
+# Generation Time: 2019-04-03 08:28:23 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table brand
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `brand`;
+
+CREATE TABLE `brand` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `brand` WRITE;
+/*!40000 ALTER TABLE `brand` DISABLE KEYS */;
+
+INSERT INTO `brand` (`id`, `title`, `description`, `deleted`)
+VALUES
+	(1,'Gibson','Orville Gibson begyndte med at lave mandoliner i 1884 i Kalamazoo, Michigan, USA. I 1902 blev Gibson Mandolin-Guitar Mfg. Co, Ltd grundlagt for at markedsføre disse instrumenter. \n\nI 1919 ansætter Gibson en ung lovende instrument mager og musiker som hed Lloyd Loar. Loar sætter en bølge af produkt udvikling i gang der blandt andet fører til en række nyskabelser indenfor banjo, mandolin og guitar design. Bl.a. lanceres i 1922 den berømte Gibson F5 mandolin og Loar opfinder den moderne jazz guitar ved at give den F-huller og forlænger samtidigt halsen således at broen rykkes tættere på midten af guitaren, hvilket giver guitaren væsentligt mere volumen og tone. Dette fører til at Gibson bliver den førende producent af jazz guitarer i USA. \nI 1930\'erne forsker Gibson i electrificeringen af guitaren, hvilket fører til Gibsons første elektriske guitar, som lanceres i 1936 under navnet ES-150. Og det er endvidere i 30\'erne at Gibsons J-45 og J-200 western guitarer introduceres Gibson stopper stort set produktionen under anden verdenskrig på grund af mangel på træ og metal til at bygge guitarer af, men i 1948 ansætter Gibson, Ted McCarty, hvilket bliver starten på Gibsons mest fremgangsrige periode. Under McCartys ledelse udvikler Gibson alle de instrumenter som i dag er grundstammen i Gibsons udvalg og som i mange tilfælde er gået hen og blevet både legendariske og myte omspundne. Det er bl.a. i denne periode at Les Paul modellen lanceres, enda i den form som vi stadig kender idag, nemlig Standard, Custom, Junior og Special modellen. I 1957 opfinder Gibson den moderne humbucker pickup som vi stadig kender som PAF (\"Patent Applied For\") modellen, året efter se den første ES-335 dagens lys og samme år lanceres både Flying V og Explorer modellen. I 1960 kommer de første Gibson Hummingbirds på markedet og i 1961 kommer den berømte Gibson SG. \n\nI 1974 overtages Gibson af Norlin Musical Instruments hvilket fører til et årti med tilbage gang hvilket resulterer i at Gibson står på randen af konkurs i 1986. Dog lykkedes det Norlin at sælge Gibson til 3 amerikansk/britiske forretnings mænd, nemlig Henry E. Juszkiewicz, David H. Berryman og Gary A. Zebrowski, hvilket bliver Gibsons redning og starten på en ny guldalder for Gibson. Gibson Guitar Corporation er i dag en af verdens mest kendte fabrikanter af guitarer. som, udover Gibson også omfatter Epiphone, Kramer. og Garrison.\n\n',0),
+	(2,'Fender','Fender Musical Instruments Corporation (tidligere Fender Electric Instrument Company) blev grundlagt af Clarence \"Leo\" Fender i 1946. I 1954 blev el-guitaren Stratocaster introduceret og er siden blevet et varemærke for Fender... Hey',0),
+	(3,'Epiphone','Epimanondas Stathopoulos grundlagde Epiphone i 1924. Han var græsk indvandrer i New York og kombinerede sit fornavn Epi med phone, det græske ord for lyd. I starten handlede det mest om banjoer, men i gennem 30´erne kæmpede Epiphone med ærkerivalerne Gibson om herredømmet på guitarmarkedet. Gibson købte Epiphone i 1957, og mærket fik stor succes i hænderne på The Beatles. I dag spiller bl.a. Tony Iommi, Paul Weller, Katie Melua og Paul McCartney Epiphone.',0),
+	(4,'Squier','Squier er det navn, Fender bruger til guitarer og basser, der bliver fremstillet på fabrikker ikke direkte ejet af Fender selv. Squier var oprindelig en amerikansk baseret strengefabrikant, som Fender købte i 1965. Fender gemte dog navnet til 1982, da man lancerede en serie af billigere versioner af firmaets mange ikon-instrumenter. Nogle af disse japansk fremstillede guitarer er siden blevet samlerobjekter. \r\n  \r\nSquier er i dag et af verdens mest udbredte guitarmærker, hvilket tydeligt afspejles i det store udvalg, 4Sound har. Squier fremstiller Stratocaster, Telecaster, Jazz Bass, Precision Bass samt en lang række spændende signatur-modeller, der er overordentligt velbyggede og vellydende. Og hvem andre skulle ellers kunne lave gode billige Fender-instrumenter end Fender selv?\r\n\r\n',0),
+	(5,'Martin','Det er umuligt at komme uden om Martin, når det drejer sig om stålstrengs guitarer. For det første ville der slet ikke findes guitarer, som vi kender dem, hvis det ikke havde været for Martin. Det gamle firma har på egen hånd skabt mange af de features, vi idag tager for givet på en hvilken som helst guitar - fx. dreadnought-formen og X-brace-afstivning af dækket. Ingen anden producent har i den grad præget instrumentets udvikling, og det faktum at Martin stadig er familie-ejet og med introduktionen af nye, banebrydende modeller bliver ved med at udfordre vores forstilling om, hvad en akustisk guitar er, er intet mindre end imponerende. Dernæst er håndværket altid i top; i de seneste år har Martin lanceret nogle billigere modeller, men de er aldrig gået på kompromis med kvaliteten, og på nær X-serien, laves alle modeller fortsat på deres fabrik i Pennsylvania.',0),
+	(6,'Taylor','Taylor guitarer er baseret i El Cajon, Californien, og har været banebrydende for nogle af de mest succesfulde nyskabelser i akustisk guitar fremstilling i de seneste tre årtier. Etableret i 1974, steget Taylor hurtigt fra en mands drøm om at blive bedst sælgende akustiske guitar brand i Nordamerika.\n\nBredt udbud af kroppen størrelser og tone skoven i området fra Gear4music.com sikrer, at der er en Taylor guitar for hver spiller. Kendt for fremragende spilleegenskaber og rig, afbalanceret toner, hver guitar i linjen Taylor op kunne anses leader i sin kategori.',0),
+	(7,'Yamaha','Yamaha er et af de største navne indenfor den moderne akustiske guitarverden. Med over 40 års erfaring, bliver Yamaha akustiske guitarer rost for deres balance mellem det traditionelle og det allernyeste. Med brugere som Bob Dylan og Jeff Beck, har Yamaha akustiske guitarer vist sig at være et levedygtigt alternativ på det akustiske guitarmarked.',0),
+	(8,'Ibanez','Ibanez er en af de første Japanske guitarproducenter, som for alvor fik tag i det amerikanske og europæiske guitarmarked. Ibanez guitarer og basser laves af Hoshino som også er kendt for de populære Tama Trommesæt. Hoshino imorterede og solgte i starten af 1930\'erne, spanske guitarer af mærket Salvador Ibanez. Da Ibanez fabriken blev ødelagt under den spanske borgerkrig, beslutede Hoshino at købe retten til Ibanez navnet og begyndte i 1935 selv at producere guitarer under dette navn. I 1960\'erne begyndte Ibanez at producere billige kopier af Fender, Gibson og Rickenbacker guitarer hvilket førte til den såkaldte \"lawsuit\" periode, dette førte til at Ibanez blev tvunget til at udvikle deres egne modeller bl.a. den berømte Iceman og de populære Ibanez Roadstar guitarer. I slutningen af 80\'erne indgår Ibanez i et samarbejde med Steve Vai, hvilket fører til lanceringen af JEM og Universe guitarerne, dette bliver en stor succes for Ibanez som efterfølgende lancerer RG serien som et billigere alternativ til JEM modellerne. Ibanez er i dag det førende Japanske guitarmærke, at de er nået så vidt skyldes i høj grad at de har forstået at indrage nogle af verdenens førende og mest progressive guitarister og bassister i udviklingen af nye guitarer. Musikere som Joe Satriani, Steve Vai, John Petrucci, Pat Metheny, Joe Pass, Gary Willis, George Benson, Frank Gambale, Steve Lukather og mange flere har igennem tiden haft en aktiv indflydelse på Ibanez og de instrumenter de fremstiller.',0),
+	(9,'Supreme','',0),
+	(10,'Everdeen','',0),
+	(11,'Musicman','',0),
+	(12,'Furch','',0),
+	(13,'Cort','Der er ikke mange, der ved det, men Cort er verdens største producent af guitarer og basser. Firmaet, der har fabrikker i Korea, Indonesien og Kina, laver ikke bare instrumenterne, der sælges under eget navn, men det er også dem, der producerer de billigere guitarer, basser, ja, sågar forstærkere for firmaer, som Fender, PRS, Lakland, G&L, Line 6 og mange flere. Sådan en position får man ikke, hvis man ikke leverer varen, og Cort har da også altid leveret ren kvalitet til meget små priser. Ser man på deres dyrere modeller, forbavses man over det høje niveau af håndværk, og celebre musikere, som Larry Coryell, Hiram Bullock og T.M. Stevens har kastet deres kærlighed på Cort. Synes du, det lyder fristende? Det kan være, du spiller på en Cort uden at vide det…',0),
+	(14,'Korg','Korg blev grundlagt i Japan i de tidlige 60’ere af Tsutomu Katoh og hans kollega Tadashi Osanai. I 1963 introduceredes deres førstefødte Doncamatic DA-20, en elektrisk rytmeboks baseret på roterende plader. Katoh blev kontaktet af Fumio Mieda, en ingeniør, som ville bygge en ny type orgel, som desuden var programmerbar. Mieda havde i praksis konstrueret en synthesizer. 50 eksemplarer blev fremstillet og blev solgt under navnet Korg, som var en sammentrækning af navnet Keio og Organ. Resten er musikhistorie. Siden 70’erne har Korg udviklet en mængde banebrydende produkter. Alt fra Mini Korg , PE-1000 ,MS-20 , PolySix , verdens første Workstation Korg M1 ,Wavedrum og Kaoss -produkterne til verdens meste solgte synth, Microkorg , og nu i 2011: Korg Kronos . I 1975 lancerede man også verdens absolut første tuner i lommeformat, WT-10, et produkt, som siden da har fået utallige efterfølgere.',0),
+	(15,'Nord','Clavia, som i 2008 omdøbte firmaet til Nord, blev grundlagt 1983 i en kælder i Stockholm af Hans Nordelius og Mikael Carlsson. Siden er Nord blevet en verdenssucces, og de fleste af de karakteristisk røde keyboard-modeller har da også vundet priser gentagne gange verden over.',0),
+	(16,'Roland','Roland blev etableret i 1972 i Osaka, Japan og var allerede i 1973 repræsenteret på musikmessen NAMM Show i Los Angeles, hvor de første Rytmebokse (TR-33, TR-55 og TR-7) blev vist frem sammen med præsentationen af Rolands første synthesizer SH-1000. I 1974 kom så det første digitale piano, nemlig EP-30, der markerede begyndelsen på en dominerende rolle som udvikler af digitale pianoer af højeste standard brugt af professionelle musikere, rytmiske såvel som klassiske verden over. Roland har siden hen udviklet deres unikke V-series af instrumenter, der nu betegnes som det ypperligste inden for digitale instrumenter, lige fra piano og keyboards til accordions, trommer, guitarforstærkere og pedaler.',0),
+	(17,'Akai','Akai Professional hører til i den lille og eksklusive klub af producenter vis produkter har haft en direkte indflydelse på den måde musikere tænker og laver musik. Akai Professional blev grundlagt i 1984 som et datterselskab af Akai, som på det tidspunkt udelukkende fremstillede hifi udstyr. Akai Professional lancerede allerede i 1985 verdens første integrerede 12-spors mixer/recorder og i 1986 kom den legendariske Akai S900 sampler til verdenen. Umiddelbart efter kom den første MPC, Akai MPC60, en integreret sampler, trommemaskine og MIDI sequencer som blev et uundværligt værktøj for denne tids rap og hip hop kunstnere. Akai\'s kraftige produktudvikling har ligeledes ført til store landvindinger indenfor harddisk recording hvor Akai i 90\'erne lancerede de første 8 og 16 spors harddisk recordere der var til at betale. Akai Professional fremstiller i dag keyboards, lydkort, kontrollere, grooveboxe, og samplere i topkvalitet.',0),
+	(18,'Roli','',0),
+	(19,'Moog','',0),
+	(198,'Guild','TEst',0),
+	(202,'Luftguitar','Demo der bare virker!!!!',0);
+
+/*!40000 ALTER TABLE `brand` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
