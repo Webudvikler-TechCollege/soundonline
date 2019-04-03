@@ -1,12 +1,9 @@
 const mysql = require('../../config/mysql')();
-const jwt = require('../../config/jwt');
 
 module.exports = (app) => {
 
     //Get all 
     app.get('/api/brands', function(req, res) {
-        let token = jwt.open(req.headers.token);
-        console.log(req.headers.token);
 
         const sql = "SELECT id, title, description FROM brand";
         mysql.query(sql, (err, rows, fields) => {

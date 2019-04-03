@@ -2,13 +2,13 @@
  * Routes til brand adminpanel
  * Heinz K - Marts 2019
  */
+
 const modulename = 'Brands';
 
 module.exports = (app) => {
+
     //GET: Henter liste med brands
     app.get('/admin/brand/index', (req, res) => {
-        //let token = jwt.open(req.headers.token);
-        //console.log(token);
     
         res.render('pages/admin/brand/index', {
             modulename: modulename,
@@ -49,5 +49,18 @@ module.exports = (app) => {
             modulemode: 'Slet mærke',
             id: req.params.id
         }) 
-    });     
+    });    
+    
+    function authorize(req, res, next) {
+        const baererHeader = req.headers['authorization'];
+        if(typeof baererHeader != 'undefined') {
+            const baerer = baererHeader.split(" ");
+            const baererToken = baerer[1];
+            req.token = baererToken;
+            next();
+        } else {
+            res.sendStatus(403);
+        }
+        return module.exports;
+    }    
 }

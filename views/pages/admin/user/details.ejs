@@ -1,0 +1,48 @@
+<!-- views/pages/index.ejs -->
+<% include ../../../partials/header %>    
+       
+<div id="details"></div>
+
+<script>
+    //Sætter vars til id og url
+    const id = <%= id %>;
+    const url = '/api/user/' + id;
+
+    //Fetcher data fra API
+    fetch(url)
+        .then(data => {
+            return data.json();
+        })
+        .then(data => {
+            //Bygger html table med data og injecter det i div#details 
+            let html = `<table class="table"> 
+                            <tr>
+                                <td width="15%"><b>Fornavn</b></td>
+                                <td>${data[0].firstname}</td>
+                            </tr>
+                            <tr>
+                                <td width="15%"><b>Efternavn</b></td>
+                                <td>${data[0].lastname}</td>
+                            </tr>
+                            <tr>
+                                <td width="15%"><b>Email</b></td>
+                                <td>${data[0].email}</td>
+                            </tr>
+                        </table>`;
+            document.getElementById('details').innerHTML = html;
+        });
+
+        //Udskriver knapper til Oversigt og Rediger via Javascripts createElement
+        let btnedit = document.createElement('a');
+        btnedit.setAttribute('class', 'btn btn-dark');
+        btnedit.setAttribute('href', '/admin/user/update/' + id);
+        btnedit.innerHTML = 'Rediger';
+        document.getElementById('buttonpanel').appendChild(btnedit);
+
+        let btnlist = document.createElement('a');
+        btnlist.setAttribute('class', 'btn btn-dark');
+        btnlist.setAttribute('href', '/admin/user/index');
+        btnlist.innerHTML = 'Oversigt';
+        document.getElementById('buttonpanel').appendChild(btnlist);
+</script>
+<% include ../../../partials/footer %>

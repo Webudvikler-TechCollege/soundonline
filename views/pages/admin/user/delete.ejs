@@ -1,0 +1,46 @@
+<!-- views/pages/index.ejs -->
+<% include ../../../partials/header %>    
+       
+<p>Vil du slette brugeren <i id="name"></i> fra databasen?</p>
+<button id="delsubmit" class="btn btn-danger">Slet</button>
+
+<script>
+    //Sætter vars til id og url
+    const id = <%= id %>;
+    const url = '/api/user/' + id;
+
+    //Fetcher data fra API og giver besked til brugeren om 
+    //hvilket brand man er ved at slette
+    fetch(url)
+        .then(data => {
+            return data.json();
+        })
+        .then(data => {
+            document.getElementById('name').innerHTML = data[0].email;
+        });
+
+        //Sætter klik event på slette knap #delsubmit.
+        document.getElementById('delsubmit').onclick = () => {   
+
+            fetch(url, {
+                    method: 'DELETE'
+                })
+                .then(data => {
+                    if(data.status === 200) {
+                        document.location.href = '/admin/user/index';
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+
+        }
+
+    //Opretter knap til oversigt 
+    let btn = document.createElement('a');
+    btn.setAttribute('class', 'btn btn-dark');
+    btn.setAttribute('href', '/admin/user/index');
+    btn.innerHTML = 'Oversigt';
+    document.getElementById('buttonpanel').appendChild(btn);            
+</script>
+<% include ../../../partials/footer %>

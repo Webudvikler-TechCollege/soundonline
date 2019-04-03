@@ -1,46 +1,70 @@
+/**
+ * Login route med bcrypt & express session
+ * 
+ */
 const mysql = require('../../config/mysql')();
-const jwt = require('../../config/jwt');
-const bodyParser = require('body-parser');
+const authorize = require('../../middleware/authorize');
+const bcrypt = require('bcrypt');
 
 module.exports = (app) => {
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
 
-    //Login: Returnerer view med login formular
+    //Login: Kalder view med login formular
     app.get('/login', (req, res) => {
-        res.render('pages/admin/loginform', {
-            modulename: 'Login',
-            modulemode: ''
+        res.render('pages/admin/login', {
+            vars: {
+                modulename: 'Login',
+                modulemode: '',
+                errormsg: ''
+            }
         })
     })
 
-    //Login: Tjekker bruger login og returnerer jsonwebtoken hvis alt er godt
-    app.post('/login', (req, res) => {
-        //Henter data fra login formular
+    //Login: Kalder view med login formular
+    app.get('/login/:errcode([0-9]*)', (req, res) => {
+
+        res.render('pages/admin/login', {
+            modulename: 'Login',
+            modulemode: '',
+            errormsg: 'Fejlmeddelelse'
+        })
+    })
+
+
+    //Verificerer loginoplysninger
+    app.post('/login', async (req, res) => {
+        //Validate af login form post
         const email = (req.body.email != undefined) ? req.body.email : '';
         const password = (req.body.password != undefined) ? req.body.password : '';
 
-        //Validerer input data
         if(email === '' || password === '') {
-            res.sendStatus(400);
+            //Return unauthorized
+            res.redirect('/login/401');
+            //res.sendStatus(401);
         } else {
-            //Tjekker om bruger findes i user db
-            const sql = "SELECT id FROM user WHERE email = ? AND password = ?";
-            mysql.query(sql, [email, password], (err, result, fields) => {
-                if(err) {
-                    //DB Fejl: Internal Server Error
-                    res.sendStatus(500);
-                } else {
-                    if(!result[0]) {
-                        //Unauthorized
-                        res.sendStatus(401);
+            //Henter data fra user db
+            const sql = "SELECT * FROM user WHERE email = ?";
+            await mysql.query(sql, [email], (err, result, fields) => {
+                if(result) {
+                    //Match form password med db password
+                    if(bcrypt.compareSync(password, result[0].password)) {
+                        //Sæt session med bruger id
+                        req.session.user = result[0].id;
+                        //Redirect
+                        res.redirect('/authorize');
                     } else {
-                        //Ok
-                        let token = jwt.create({ id: result[0].id });
-                        res.json({ token: token });
+                        //Return unauthorized
+                        res.redirect('/login/401');
                     }
+                } else {
+                    //Return forbidden
+                    res.redirect('/login/403');
                 }
             });
         }
+    })
+
+    app.get('/authorize', authorize, (req, res) => {
+        console.log(req.session.user);
+        res.sendStatus(200);
     })
 }

@@ -1,0 +1,32 @@
+<% include ../../partials/head %>
+
+<body id="loginview">
+    <div>
+    <div id="logo">CMS LOGIN</div>
+    <div id="errormsg" class="text-danger">
+        <%= errormsg ? errormsg : '' %>
+    </div>
+    <form id="loginform" method="post" action="/login" autocomplete="off">
+            <div class="form-group row">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><span class="fa fa-user"></span></div>
+                    </div>            
+                    <input type="text" class="form-control" id="email" name="email" autocapitalize="none" placeholder="Indtast brugernavn" value="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><span class="fa fa-lock"></span></div>
+                    </div>            
+                    <input type="password" class="form-control" id="password" name="password" autocapitalize="none" placeholder="Indtast adgangskode" value="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="input-group text-right">
+                <button type="submit" id="login" value="Login" class="btn btn-success pull-right">Login</button>
+                </div>
+        </div>
+    </form>
+</div>

@@ -1,11 +1,11 @@
 /* Login Window */
-#login { 
+#loginview { 
     display: block; 
     background: #333; 
     padding: 2%; 
 }
 
-#login>div { 
+#loginview > div { 
     width: 100%; 
     max-width: 400px; 
     padding: 20px 0px; 
@@ -17,7 +17,7 @@
     margin-top: 10%; 
 }
 
-#login #logo { 
+#loginview #logo { 
     text-align: center; 
     float: none;
 }
@@ -27,7 +27,7 @@
     width: 76%;
 }
 
-#login .form-group { 
+#loginview .form-group { 
     margin: 15px auto; 
     width: 80%; 
     max-width: 300px; 

@@ -1,10 +1,5 @@
 <% include ./head %>
-    <script>
-        const adresse = 'http://localhost:4000/';
-        if (sessionStorage['token'] == undefined) {
-            window.location.replace(adresse + 'login');
-        }    
-    </script>
+
 <body class="container">
 
     <header>
@@ -18,6 +13,9 @@
                 <ul class="navbar-nav">
                     <li class="nav-item active">
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/user/index">Brugere</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/brand/index">Brands</a>

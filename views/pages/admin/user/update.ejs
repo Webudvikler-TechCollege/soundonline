@@ -1,0 +1,91 @@
+<% include ../../../partials/header %>    
+
+<form id="form">
+    <fieldset>
+        <div class="form-group" data-group="firstname">
+            <label class="col-sm-2 control-label required" for="firstname">Fornavn:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="firstname" id="firstname" value="">
+            </div>
+        </div>    
+        <div class="form-group" data-group="lastname">
+            <label class="col-sm-2 control-label required" for="lastname">Efternavn:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="lastname" id="lastname" value="">
+            </div>
+        </div>    
+        <div class="form-group" data-group="email">
+            <label class="col-sm-2 control-label required" for="email">Email:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="email" name="email" id="email" value="">
+            </div>
+        </div>    
+        <div class="form-group" data-group="password">
+            <label class="col-sm-2 control-label required" for="password">Adgangskode:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="password" name="password" id="password" value="">
+            </div>
+        </div>    
+        <div class="form-group">
+            <button type="button" id="formsubmit" class="btn btn-success">Gem</button>
+        </div>
+    </fieldset>
+</form>
+
+
+<script>
+    //Sætter var til id og form objekt
+    const id = <%= id %>;
+    const form = document.querySelector('form');
+
+    //Fetcher eksisterende data fra API og placere disse i de respektive felter
+    fetch('/api/user/' + id)
+        .then(data => {
+            return data.json();
+        })
+        .then(data => {
+            form.firstname.value = data[0].firstname;
+            form.lastname.value = data[0].lastname;
+            form.email.value = data[0].email;
+            form.password.value = data[0].password;
+        });
+
+    //Sætter klik event på formens Gem knap.
+    document.getElementById('formsubmit').onclick = () => {
+        //Sætter var til url
+        let url = '/api/user/' + id;
+
+        //Sætter fetch settings med PUT metode, headers og form data
+        let fetchSettings = {
+            method: 'PUT',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                firstname: form.firstname.value,
+                lastname: form.lastname.value,
+                email: form.email.value,
+                password: form.password.value
+            })
+        }
+
+        //Fetcher data til api og tjekker resppns. Redirecter til details Hvis ok (200) 
+        fetch(url, fetchSettings)
+            .then(res => {
+                if(res.status === 200) {
+                    document.location.href = '/admin/user/details/' + id;
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
+    //Opretter knap til oversigt 
+    let btn = document.createElement('a');
+    btn.setAttribute('class', 'btn btn-dark');
+    btn.setAttribute('href', '/admin/user/index');
+    btn.innerHTML = 'Oversigt';
+    document.getElementById('buttonpanel').appendChild(btn);    
+</script>
+
+<% include ../../../partials/footer %>
