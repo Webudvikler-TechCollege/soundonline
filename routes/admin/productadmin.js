@@ -2,11 +2,12 @@
  * Routes til produkt adminpanel
  * Heinz K - Marts 2019
  */
+const authorize = require('../../middleware/authorize');
 const modulename = 'Produkter';
 
 module.exports = (app) => {
     //GET: Henter liste med produkter
-    app.get('/admin/product/index', (req, res) => {
+    app.get('/admin/product/index', authorize, (req, res) => {
         //let token = jwt.open(req.headers.token);
         //console.log(token);
         res.render('pages/admin/product/index', {
@@ -33,7 +34,7 @@ module.exports = (app) => {
     });
 
     //Redigere produkt
-    app.get('/admin/brand/product/:id', (req, res) => {
+    app.get('/admin/product/update/:id', (req, res) => {
         res.render('pages/admin/product/update', {
             modulename: modulename,
             modulemode: 'Rediger',

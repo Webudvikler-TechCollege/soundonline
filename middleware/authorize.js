@@ -2,7 +2,7 @@
 module.exports = authorize;
 
 async function authorize(req, res, next) {
-    console.log('Session:' + req.session.user);
+    //console.log('Session:' + req.session.user);
     if(!req.session.user) return res.redirect('/login');
     next();
 }

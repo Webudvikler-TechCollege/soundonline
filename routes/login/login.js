@@ -48,7 +48,7 @@ module.exports = (app) => {
                         //Sæt session med bruger id
                         req.session.user = result[0].id;
                         //Redirect
-                        res.redirect('/authorize');
+                        res.redirect('/admin/');
                     } else {
                         //Return unauthorized
                         res.redirect('/login/401');
@@ -61,8 +61,16 @@ module.exports = (app) => {
         }
     })
 
+    app.get('/logout', (req, res, next) => {
+        req.session.destroy(function(err) {
+            // cannot access session here
+        })
+        res.redirect('/login');
+        next();
+    })
+
     app.get('/authorize', authorize, (req, res) => {
-        console.log(req.session.user);
+        //console.log(req.session.user);
         res.sendStatus(200);
     })
 }
