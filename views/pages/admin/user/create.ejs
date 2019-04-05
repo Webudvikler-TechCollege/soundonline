@@ -68,12 +68,8 @@
             });
     }
 
-    //Opretter knap til oversigt 
-    let btn = document.createElement('a');
-    btn.setAttribute('class', 'btn btn-dark');
-    btn.setAttribute('href', '/admin/user/index');
-    btn.innerHTML = 'Oversigt';
-    document.getElementById('buttonpanel').appendChild(btn);    
+    //Opretter knap til oversigt
+    doButton('/admin/user/index', 'Oversigt');
 </script>
 
 <% include ../../../partials/footer %>

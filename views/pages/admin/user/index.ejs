@@ -43,12 +43,7 @@
         });
 
         //Udskriver knap til Opret ny
-        let btn = document.createElement('a');
-        btn.setAttribute('class', 'btn btn-dark');
-        btn.setAttribute('href', '/admin/user/create');
-        btn.innerText = 'Opret ny';
-        document.getElementById('buttonpanel').appendChild(btn);
-
+        doButton('/admin/user/create', 'Opret ny');
 </script>
 
 <% include ../../../partials/footer %>

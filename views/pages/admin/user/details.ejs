@@ -14,35 +14,28 @@
             return data.json();
         })
         .then(data => {
+            let captions = {
+                'firstname': 'Fornavn',
+                'lastname': 'Efternavn',
+                'email': 'Email'
+            }
+
             //Bygger html table med data og injecter det i div#details 
-            let html = `<table class="table"> 
-                            <tr>
-                                <td width="15%"><b>Fornavn</b></td>
-                                <td>${data[0].firstname}</td>
-                            </tr>
-                            <tr>
-                                <td width="15%"><b>Efternavn</b></td>
-                                <td>${data[0].lastname}</td>
-                            </tr>
-                            <tr>
-                                <td width="15%"><b>Email</b></td>
-                                <td>${data[0].email}</td>
-                            </tr>
-                        </table>`;
+            let html = `<table class="table">`;
+            for(const item in data[0]) {
+                if(captions[item]) {
+                    html += `<tr>
+                                <td width="15%"><b>${captions[item]}:</b></td>
+                                <td>${data[0][item]}</td>
+                            </tr>`;
+                }
+            }
+            html += `</table>`;
             document.getElementById('details').innerHTML = html;
         });
 
         //Udskriver knapper til Oversigt og Rediger via Javascripts createElement
-        let btnedit = document.createElement('a');
-        btnedit.setAttribute('class', 'btn btn-dark');
-        btnedit.setAttribute('href', '/admin/user/update/' + id);
-        btnedit.innerHTML = 'Rediger';
-        document.getElementById('buttonpanel').appendChild(btnedit);
-
-        let btnlist = document.createElement('a');
-        btnlist.setAttribute('class', 'btn btn-dark');
-        btnlist.setAttribute('href', '/admin/user/index');
-        btnlist.innerHTML = 'Oversigt';
-        document.getElementById('buttonpanel').appendChild(btnlist);
+        doButton('/admin/user/update/' + id, 'Rediger');        
+        doButton('/admin/user/index', 'Oversigt');        
 </script>
 <% include ../../../partials/footer %>
