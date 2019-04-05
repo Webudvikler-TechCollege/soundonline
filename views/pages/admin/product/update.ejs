@@ -1,0 +1,149 @@
+<% include ../../../partials/header %>    
+
+<form id="myform">    
+    <fieldset>
+        <div class="form-group" data-group="brand_id">
+            <label class="col-sm-2 control-label required" for="brand_id">Mærke</label>
+            <div class="col-sm-10" id="selectbrand">
+            </div>
+        </div>    
+        <div class="form-group" data-group="item_number">
+            <label class="col-sm-2 control-label required" for="item_number">Varenummer:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="item_number" id="item_number" value="">
+            </div>
+        </div>    
+        <div class="form-group" data-group="title">
+            <label class="col-sm-2 control-label required" for="title">Titel:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="title" id="title" value="">
+            </div>
+        </div>        
+        <div class="form-group" data-group="description_short">
+            <label class="col-sm-2 control-label required" for="description_short">Kort beskrivelse:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" name="description_short" id="description_short"></textarea>
+            </div>
+        </div>    
+        <div class="form-group" data-group="description_long">
+            <label class="col-sm-2 control-label required" for="description_long">Specifikationer</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" name="description_long" id="description_long"></textarea>
+            </div>
+        </div>    
+        <div class="form-group" data-group="image">
+            <label class="col-sm-2 control-label required" for="image">Billede</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="image" id="image" value="">
+            </div>
+        </div>    
+        <div class="form-group" data-group="price">
+            <label class="col-sm-2 control-label required" for="price">Pris</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="price" id="price" value="">
+            </div>
+        </div>
+        <div class="form-group" data-group="stock">
+            <label class="col-sm-2 control-label required" for="stock">Lagerbeholdning</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="stock" id="stock" value="">
+            </div>
+        </div>    
+        <div class="form-group" data-group="active">
+            <label class="col-sm-2 control-label required" for="active">Aktiv</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="checkbox" name="active" id="active" value="1">
+            </div>
+        </div>    
+        <div class="form-group">
+            <button type="button" id="formsubmit" class="btn btn-success">Gem</button>
+        </div>
+    </fieldset>
+</form>
+
+<script>
+    //Sætter var til id og form objekt
+    const id = <%= id %>;
+    const form = document.querySelector('form');
+
+    //Fetcher eksisterende data fra API og placere disse i de respektive felter
+    fetch('/api/product/' + id)
+        .then(data => {
+            return data.json();
+        })
+        .then(data => {
+            form.item_number.value = data[0].item_number;
+            form.title.value = data[0].title;
+            form.description_short.value = data[0].description_short;
+            form.description_long.value = data[0].description_long;
+            form.image.value = data[0].image;
+            form.price.value = currencyToHuman(data[0].price);
+            form.stock.value = data[0].stock;
+            form.active.checked = (data[0].stock) ? true : false;
+
+            fetch('/api/brands/')
+                .then(brands => {
+                    return brands.json();
+                })
+                .then(brands => {
+                    let select = document.createElement('select');
+                    select.setAttribute('class', 'form-control');
+                    select.setAttribute('id', 'brand_id');
+                    for(let item of brands) {
+                        let opt = document.createElement('option');
+                        opt.setAttribute('value', item.id);
+                        opt.innerText = item.title;
+                        if(item.id === data[0].brand_id) {
+                            opt.setAttribute('selected', 'selected');
+                        }
+                        select.appendChild(opt);
+                    }
+                    document.getElementById('selectbrand').appendChild(select);
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+            
+        });
+
+    //Sætter klik event på formens Gem knap.
+    document.getElementById('formsubmit').onclick = () => {
+        //Sætter var til url
+        let url = '/api/product/' + id;
+
+        //Sætter fetch settings med PUT metode, headers og form data
+        let fetchSettings = {
+            method: 'PUT',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                item_number: form.item_number.value,
+                title: form.title.value,
+                description_short: form.description_short.value,
+                description_long: form.description_long.value,
+                image: form.image.value,
+                price: currencyToDb(form.price.value),
+                stock: form.stock.value,
+                brand_id: form.brand_id.value,
+                active: form.active.value
+            })
+        }
+
+        //Fetcher data til api og tjekker resppns. Redirecter til details Hvis ok (200) 
+        fetch(url, fetchSettings)
+            .then(res => {
+                console.log(res);
+                if(res.status === 200) {
+                    document.location.href = '/admin/product/details/' + id;
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
+    //Opretter knap til oversigt 
+    doButton('/admin/product/index', 'Oversigt');
+</script>
+
+<% include ../../../partials/footer %>

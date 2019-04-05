@@ -64,11 +64,7 @@
     }
 
     //Opretter knap til oversigt 
-    let btn = document.createElement('a');
-    btn.setAttribute('class', 'btn btn-dark');
-    btn.setAttribute('href', '/admin/brand/index');
-    btn.innerHTML = 'Oversigt';
-    document.getElementById('buttonpanel').appendChild(btn);    
+    doButton('/admin/brand/index', 'Oversigt');   
 </script>
 
 <% include ../../../partials/footer %>

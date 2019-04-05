@@ -6,7 +6,7 @@
 <script>
     //Sætter vars til id og url
     const id = <%= id %>;
-    const url = '/api/brand/' + id;
+    const url = '/api/product/' + id;
 
     //Fetcher data fra API
     fetch(url)
@@ -16,9 +16,16 @@
         .then(data => {
             let captions = {
                 'title': 'Titel',
-                'description': 'Beskrivelse'
+                'item_number': 'Varenummer',
+                'description_short': 'Kort beskrivelse',
+                'description_long': 'Lang beskrivelse',
+                'image': 'Billede',
+                'price': 'Pris',
+                'stock': 'Lagerbeholdning',
+                'deleted': 'Aktiv',
+                'brand': 'Mærke'
             }
-    
+
             //Bygger html table med data og injecter det i div#details 
             let html = `<table class="table">`;
             for(const item in data[0]) {
@@ -30,11 +37,12 @@
                 }
             }
             html += `</table>`;
-            document.getElementById('details').innerHTML = html;                    
+            document.getElementById('details').innerHTML = html;
         });
 
         //Udskriver knapper til Oversigt og Rediger via Javascripts createElement
-        doButton('/admin/brand/update/' + id, 'Rediger');
-        doButton('/admin/brand/index', 'Oversigt');
+        doButton('/admin/product/update/' + id, 'Rediger', 'buttonpanel');
+        doButton('/admin/product/index', 'Oversigt', 'buttonpanel');
 </script>
+
 <% include ../../../partials/footer %>

@@ -1,0 +1,134 @@
+<% include ../../../partials/header %>    
+
+<form id="myform">    
+    <fieldset>
+        <div class="form-group" data-group="brand_id">
+            <label class="col-sm-2 control-label required" for="brand_id">Mærke</label>
+            <div class="col-sm-10" id="selectbrand">
+            </div>
+        </div>    
+        <div class="form-group" data-group="item_number">
+            <label class="col-sm-2 control-label required" for="item_number">Varenummer:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="item_number" id="item_number" value="">
+            </div>
+        </div>    
+        <div class="form-group" data-group="title">
+            <label class="col-sm-2 control-label required" for="title">Titel:</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="title" id="title" value="">
+            </div>
+        </div>        
+        <div class="form-group" data-group="description_short">
+            <label class="col-sm-2 control-label required" for="description_short">Kort beskrivelse:</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" name="description_short" id="description_short"></textarea>
+            </div>
+        </div>    
+        <div class="form-group" data-group="description_long">
+            <label class="col-sm-2 control-label required" for="description_long">Specifikationer</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" name="description_long" id="description_long"></textarea>
+            </div>
+        </div>    
+        <div class="form-group" data-group="image">
+            <label class="col-sm-2 control-label required" for="image">Billede</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="image" id="image" value="">
+            </div>
+        </div>    
+        <div class="form-group" data-group="price">
+            <label class="col-sm-2 control-label required" for="price">Pris</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="price" id="price" value="0,00">
+            </div>
+        </div>
+        <div class="form-group" data-group="stock">
+            <label class="col-sm-2 control-label required" for="stock">Lagerbeholdning</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="stock" id="stock" value="0">
+            </div>
+        </div>    
+        <div class="form-group" data-group="active">
+            <label class="col-sm-2 control-label required" for="active">Aktiv</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="checkbox" name="active" id="active" value="1">
+            </div>
+        </div>    
+        <div class="form-group">
+            <button type="button" id="formsubmit" class="btn btn-success">Gem</button>
+        </div>
+    </fieldset>
+</form>
+
+<script>
+    //Sætter var til id og form objekt
+    const form = document.querySelector('form');
+
+    //Fetcher eksisterende data fra API og placere disse i de respektive felter
+ 
+    fetch('/api/brands/')
+        .then(brands => {
+            return brands.json();
+        })
+        .then(brands => {
+            let select = document.createElement('select');
+            select.setAttribute('class', 'form-control');
+            select.setAttribute('id', 'brand_id');
+            for(let item of brands) {
+                let opt = document.createElement('option');
+                opt.setAttribute('value', item.id);
+                opt.innerText = item.title;
+                select.appendChild(opt);
+            }
+            document.getElementById('selectbrand').appendChild(select);
+        })
+        .catch(err => {
+            console.error(err);
+        })
+
+
+            
+ 
+
+
+    //Sætter klik event på formens Gem knap.
+    document.getElementById('formsubmit').onclick = () => {
+        //Sætter var til url
+        let url = '/api/product/';
+
+        //Sætter fetch settings med PUT metode, headers og form data
+        let fetchSettings = {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                item_number: form.item_number.value,
+                title: form.title.value,
+                description_short: form.description_short.value,
+                description_long: form.description_long.value,
+                image: form.image.value,
+                price: currencyToDb(form.price.value),
+                stock: form.stock.value,
+                brand_id: form.brand_id.value,
+                active: form.active.value
+            })
+        }
+
+        //Fetcher data til api og tjekker resppns. Redirecter til details Hvis ok (200) 
+        fetch(url, fetchSettings)
+            .then(res => {
+                if(data.id) {
+                    location.replace('/admin/brand/details/' + data.id);
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+    }
+
+    //Opretter knap til oversigt 
+    doButton('/admin/product/index', 'Oversigt'); 
+</script>
+
+<% include ../../../partials/footer %>

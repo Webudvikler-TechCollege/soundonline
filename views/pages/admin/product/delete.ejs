@@ -1,13 +1,13 @@
 <!-- views/pages/index.ejs -->
 <% include ../../../partials/header %>    
        
-<p>Vil du slette mærket <i id="title"></i> fra databasen?</p>
+<p>Vil du slette produktet <i id="title"></i> fra databasen?</p>
 <button id="delsubmit" class="btn btn-danger">Slet</button>
 
 <script>
     //Sætter vars til id og url
     const id = <%= id %>;
-    const url = '/api/brand/' + id;
+    const url = '/api/product/' + id;
 
     //Fetcher data fra API og giver besked til brugeren om 
     //hvilket brand man er ved at slette
@@ -27,7 +27,7 @@
                 })
                 .then(data => {
                     if(data.status === 200) {
-                        document.location.href = '/admin/brand/index';
+                        document.location.href = '/admin/product/index';
                     }
                 })
                 .catch(err => {
@@ -36,7 +36,7 @@
 
         }
 
-    //Opretter knap til oversigt
-    doButton('/admin/brand/index', 'Oversigt');
+    //Opretter knap til oversigt 
+    doButton('/admin/product/index', 'Oversigt');
 </script>
 <% include ../../../partials/footer %>
